@@ -1,0 +1,57 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              06/20/2023 13:22:31 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\Program Files\Keil_v5\C51\BIN\C51.EXE user\main.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\user;.\publi
+                    -c;.\app\ds18b20;.\app\oled) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <STDIO.H>
+   2          
+   3          #include "ds18b20.h"
+   4          #include "oled.h"
+   5          void main() {
+   6   1          u8 i = 0;
+   7   1          int tmp_val, a, b;
+   8   1          u8 tmp_buf[5];
+   9   1          OLED_Init();
+  10   1          ds18b20_init();
+  11   1          delay_ms(1500);
+  12   1          OLED_Clear();
+  13   1      
+  14   1          OLED_ShowChinese(0, 2, 0, 16);    // 当
+  15   1          OLED_ShowChinese(16, 2, 1, 16);   // 前
+  16   1          OLED_ShowChinese(32, 2, 2, 16);   // 温
+  17   1          OLED_ShowChinese(48, 2, 3, 16);   // 度
+  18   1          OLED_ShowChinese(64, 2, 4, 16);   // :
+  19   1          OLED_ShowChinese(112, 2, 5, 16);  // ℃
+  20   1      
+  21   1          while (1) {
+  22   2              i++;
+  23   2              if (i % 50 == 0) {
+  24   3                  tmp_val = ds18b20_read_temperture() * 10;
+  25   3              }
+  26   2              a = tmp_val % 10;
+  27   2              b = tmp_val / 10;
+  28   2              OLED_ShowNum(80, 2, b, 2, 16);
+  29   2              OLED_ShowChar(96, 2, '.', 16);
+  30   2              OLED_ShowNum(102, 2, a, 1, 16);
+  31   2          }
+  32   1      }
+*** WARNING C280 IN LINE 8 OF user\main.c: 'tmp_buf': unreferenced local variable
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    200    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      12
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
